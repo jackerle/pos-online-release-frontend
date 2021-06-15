@@ -1,11 +1,12 @@
 import Header from './../components/Header'
 import styled from 'styled-components';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import ggdrive_logo from './../static/img/ggdrive.svg'
 import { TableContainer, TableRow, Paper, Table, TableHead, TableCell, TableBody } from '@material-ui/core'
-import _version_list from './../utillity/version_list.json'
-const version_list = _version_list.reverse()
-
+import { useEffect, useState } from 'react';
+// import _version_list from './../utillity/version_list.json'
+// const version_list = _version_list.reverse()
+import axios from 'axios'
+import GetApp from '@material-ui/icons/GetApp';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily:"A7Font",
         height: 40
     },
-    ggdrive_logo: {
-        width: 30,
-        padding: 10
+    download_icon: {
+        color : "#D63135",
+        marginTop: 5
     },
     img: {
         marginBottom:30
@@ -74,6 +75,19 @@ const StyledTableCell = withStyles((theme) => ({
 export default function ReleaseList(props) {
 
     const classes = useStyles()
+    const [version_list , set_version_list] = useState([])
+
+    useEffect(()=>{
+        axios({
+            url:`https://pos-posonline-download-portal-dev-aws-s3.s3.ap-southeast-1.amazonaws.com/version_list.json`,
+            method:'get'
+        }).then(res=>{
+            if(res.data){
+                set_version_list(res.data.reverse())
+                // console.log(res.data)
+            }
+        })
+    },[])
 
     return (
         <>
@@ -151,7 +165,7 @@ export default function ReleaseList(props) {
                                                 {
                                                     ele.dev ?
                                                         <a href={ele.dev} target="_blank" rel="noreferrer">
-                                                            <img src={ggdrive_logo} alt="ggdrive" className={classes.ggdrive_logo} />
+                                                            <GetApp  className={classes.download_icon}/>
                                                         </a> : null
                                                 }
                                             </TableCell>
@@ -161,7 +175,7 @@ export default function ReleaseList(props) {
                                                 {
                                                     ele.qc ?
                                                         <a href={ele.qc} target="_blank" rel="noreferrer">
-                                                            <img src={ggdrive_logo} alt="ggdrive" className={classes.ggdrive_logo} />
+                                                            <GetApp className={classes.download_icon}/>
                                                         </a> : null
                                                 }
                                             </TableCell>
@@ -171,7 +185,7 @@ export default function ReleaseList(props) {
                                                 {
                                                     ele.uat ?
                                                         <a href={ele.uat} target="_blank" rel="noreferrer">
-                                                            <img src={ggdrive_logo} alt="ggdrive" className={classes.ggdrive_logo} />
+                                                            <GetApp className={classes.download_icon} />
                                                         </a> : null
                                                 }
                                             </TableCell>
