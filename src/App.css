@@ -1,5 +1,28 @@
 .App {
   text-align: center;
+  height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  /* background:WhiteSmoke; */
+ 
+
+}
+
+
+.App::after{
+  content: "";
+  background-image: url('./static/img/image-pos.svg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+  opacity: 0.5;
 }
 
 .App-logo {

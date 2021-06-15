@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import ReleaseList from './view/ReleaseList';
+
+
+
+
+const THEME = createMuiTheme({
+  typography: {
+    "fontFamily": `"A7Font"`,
+    "fontSize": 20,
+  },
+  palette: {
+    primary: {
+      main: '#D63135'
+    },
+    secondary: {
+      main: '#F3F8FE'
+    }
+  },
+});
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MuiThemeProvider theme={THEME}>
+        <Switch>
+          {
+            <Route path='/' >
+              <ReleaseList/>
+            </Route>
+          }
+        </Switch>
+      </MuiThemeProvider>
+  
     </div>
   );
 }
